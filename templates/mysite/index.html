@@ -1,6 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 {% load static %}
+{% load bootstrap4 %}
+
 
 <head>
     <meta charset="UTF-8">
@@ -8,25 +10,453 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
     <title>Доктор Киреева</title>
+
+    <style>
+        body {
+            padding:40px 0 0 0;
+            background-color: white:
+        }
+        nav, footer {
+          background-image: url({% static 'img/back_image.jpg' %});
+        }
+        .navbar-brand, .nav-link {
+          color: black;
+          text-decoration: none;
+
+        }
+
+        .navbar-brand:hover, .nav-link:hover {
+          color: black;
+          text-decoration: underline;
+        }
+
+        .service, .contact {
+          text-align: center;
+          padding-bottom: 2rem;
+          position: relative;
+        }
+        h2 span {
+          background: #fff;
+          padding: 0 20px;
+        }
+        .service:before, .contact:before {
+          content: "";
+          width: 100%;
+          left: 0;
+          top: 30%;
+          position: absolute;
+          z-index: -1;
+          height: 0;
+          border-top: 1px solid black;
+          padding-bottom: 2rem;
+        }
+        h3 {
+          text-align: center;
+        }
+        .price {
+          padding-left: 1.3rem;
+          font-size: 12px;
+          padding-top: 30px;
+
+        }
+        .card-body{
+          margin-top: -1.3rem;
+        }
+        section li {
+            padding-left: 1rem;
+            font-size: 13px;
+        }
+
+        .price ul, .price li {
+            font-size: 17px;
+        }
+
+        p {
+            font-size: 16px;
+        }
+        .foto_service_2 {
+            padding-top: 2rem;
+        }
+        .price .row {
+            padding-top: 2rem;
+        }
+        .location {
+            background:url({% static 'img/location.png' %}) no-repeat;
+            background-size: 20px;
+            display:inline-block;
+            vertical-align:bottom;
+            padding-left: 25px;
+        }
+        .clock {
+            background:url({% static 'img/clock.png' %}) no-repeat;
+            background-size: 20px;
+            display:inline-block;
+            vertical-align:bottom;
+            padding-left: 25px;
+        }
+        .phone {
+            background:url({% static 'img/phone.png' %}) no-repeat;
+            background-size: 20px;
+            display:inline-block;
+            vertical-align:bottom;
+            padding-left: 25px;
+        }
+         .social {
+            background:url({% static 'img/social_media.png' %}) no-repeat;
+            background-size: 20px;
+            display:inline-block;
+            vertical-align:bottom;
+            padding-left: 25px;
+        }
+
+
+
+    </style>
+
 </head>
 
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="#">
+            <!--            <img src="{% static 'img/logo44.png' %}" width="100" height="100" class="d-inline-block align-top" alt="">-->
+            Доктор Киреева
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link ml-5" href="#">Главная</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link ml-5" href="#">Обо мне</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link ml-5" href="#service">Услуги</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link ml-5" href="#contact">Контакты</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
 
-<body>
-
-    <div class="overlay"></div>
-    <video playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
-        <source src="{% static 'video/trailer.mp4' %}" type="video/mp4">
-    </video>
-    <div class="container h-100">
-        <div class="d-flex h-100 text-center align-items-center">
-            <div class="w-100 text-white">
-                <h1 class="display-3">Video Header</h1>
-                <p class="lead mb-0">With HTML5 Video and Bootstrap 4</p>
+<!-- Page Content -->
+<div class="container">
+    <section class="home">
+        <!-- Heading Row -->
+        <div class="row align-items-center my-5">
+            <div class="col-lg-5">
+                <img src="{% static 'img/foto_doctor.jpg' %}" width="430" height="400" alt="">
+            </div>
+            <!-- /.col-lg-8 -->
+            <div class="col-lg-7">
+                <h1 class="font-weight-light">Киреева Татьяна Владимировна</h1>
+                <h5>(лицензия №28/1212-М от 12.12.2019)</h5>
+                <p class="slogan"><strong>практикующий врач невролог-вертебролог</strong> (начинала свою медицинскую
+                    практику в государственном учреждениии, врач-ординатор военного госпиталя, частные медицинский
+                    центры).<br/><strong>Опыт работы 6 лет</strong>, 2 квалификационная категория. Регулярно посещаю
+                    европейские конференции, симпозиумы для усовершенствования практических навыков.<br/>Лечение
+                    неврологических заболеваний у взрослых и детей. Min количество препаратов, max эффект.<br/>В лечении
+                    использую: блокады, плазмотерапия, метод RANC, капелляромезотерапию, ботулинотерапию.</p>
+                <button type="button" class="btn btn-primary mt-4" data-toggle="modal"
+                        data-target="#reservation">
+                    Записаться на прием
+                </button>
+            </div>
+            <!-- /.col-md-4 -->
+        </div>
+        <!-- /.row -->
+    </section>
+    <!-- Call to Action Well -->
+</div>
+<!-- /.container -->
+<section class="price">
+    <div id="service" class="container">
+        <h2 class="service"><span>Услуги</span></h2>
+        <div class="row">
+            <div class="col-md-7">
+                <h3>Консультация</h3>
+                <p> При наличии болей в спине или других признаков заболеваний позвоночника, необходимо не затягивать
+                    развитие болезни, а вовремя обратиться к врачу вертебрологу, который поможет диагностировать Ваше
+                    заболевание и назначить адекватное лечение. К сожалению, часто люди пренебрежительно относятся к
+                    своему здоровью: игнорируют боль в спине на начальных этапах, занимаются самолечением, пытаются
+                    выполнять упражнения без лечения заболевания. Все это приводит к постепенному прогрессированию
+                    болезни и утрате драгоценного времени для восстановления здоровья.</p>
+                <ul>Консультация невролога (взрослая и детская) - 250 грн.</ul>
+            </div>
+            <div class="col-md-5 mb-5">
+                <img src="{% static 'img/service_1.jpg' %}" width="420" height="280"
+                     class="rounded-lg">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-5 mb-4">
+                <div>
+                    <img src="{% static 'img/service_2.jpg' %}" width="420" height="280"
+                         class="rounded-lg">
+                </div>
+                <div class="foto_service_2">
+                    <img src="{% static 'img/service_3.jpg' %}" width="420" height="300" class="rounded-lg">
+                </div>
+            </div>
+            <div class="col-md-7">
+                <h3>Плазмотерапия</h3>
+                <p>PRP-терапия(она же плазмотерапия, плазмолифтинг) основывается на применение аутологичной плазмы
+                    (непосредственно плазмы пациента). После интрадермального введения плазмы через некоторое время
+                    происходит запуск регенерации: активируются фибробласты, стимулируется выработка гиалуроновой
+                    кислоты, коллагена, эластина, снижается воспаление.<br/><strong>Показания:</strong><br/>
+                    <strong><i>в косметологии и дерматологии</i></strong> - комплексные программы омоложения, лечение
+                    угревой болезни,
+                    профилактика старения, снижение выраженности морщин, лифтинг кожи, наличие кругов под глазами,
+                    восстановление упругости и эластичности кожи, лечение растяжек и рубцов подготовка и восстановление
+                    после операции, травматичных процедур;<br/><strong><i>в трихологии</i></strong> - восстановление
+                    роста волос,
+                    улучшает состояние кожи головы, сделает волосы густыми и "живыми", укрепляет корни
+                    волос;<br/><strong><i>неврология
+                        и вертебрология</i></strong> - остеохондроз, восстановление после травм, восстановление
+                    нарушенного
+                    венозного оттока в шейном отделе, грыжи и протрузии межпозвоночных дисков, восстановление после
+                    невритов;<br/><strong><i>oртопедия-травматология</i></strong> - мышечные спазмы, артриты,
+                    артрозы.
+                </p>
+                <ul>Стоимость процедур:
+                    <li>шейноворотниковая зона - 800 грн.</li>
+                    <li>лицо - 1000 грн.</li>
+                    <li>волосистая часть головы - 1100 грн.</li>
+                    <li>суставов - от 600 грн.</li>
+                    <li>позвоночника - от 800 грн.</li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-7 mb-5">
+                <h3>Блокада</h3>
+                <p>Одним из самых эффективных методов купирования боли в арсенале невролога является лечебная локальная
+                    инъекция (лечебная блокада).<br/>Лечебные блокады — это метод терапии боли и других проявлений
+                    неврологических заболеваний, основанный на введении лекарственного препарата в патологический очаг,
+                    являющийся причиной формирования болевого синдрома.<br/>Цель лечебной медикаментозной локальной
+                    инъекции — это устранение причины боли. По современным канонам медицины считается, что остро
+                    возникшая боль в позвоночнике должна быть быстро устранена. В случае хронизации болевого синдрома
+                    могут развиться депрессивные и другие сопутствующие расстройства, которые, наслаиваясь на
+                    клинические симптомы, утяжеляют процесс лечения и ухудшают прогноз выздоровления. Купирование боли
+                    должно произойти достаточно быстро, с как можно менее побочными эффектами, материальными и
+                    временными затратами.</p>
+                <ul>Стоимость процедур блокад:
+                    <li>паравертебральная - 400 грн.</li>
+                    <li>корешковая - 500 грн.</li>
+                    <li>внутрисуставная - 600 грн.</li>
+                </ul>
+                <p>Препараты для блокады от 200 грн. (подбираются индивидуально методом пробы)</p>
+            </div>
+            <div class="col-md-5 mb-5">
+                <img src="{% static 'img/service_4.jpg' %}" width="450" height="500"
+                     class="rounded-lg">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-5 mb-5">
+                <img src="{% static 'img/service_5.jpg' %}" width="420" height="280"
+                     class="rounded-lg">
+            </div>
+            <div class="col-md-7 mb-5">
+                <h3>Капилляромезотерапия позвоночника</h3>
+                <p>Капилляромезотерапия является процедурой, улучшающей микроциркуляцию, особенно в переферических
+                    отделах кровеносной и лимфатической систем. Результаты потрясли весь мир!<br/>Суть методики проста и
+                    уникальна – при лечении и восстановлении любых процессов в организме должен быть
+                    комплексный подход, начинать надо с позвоночника, с общего состояния, а потом уже заниматься
+                    организмом в частности. Вот тогда будет и здоровье, и красота, и здоровая красота!<br/>Курс процедур
+                    состоит из 5-10 процедур в зависимости от исходного состояния.</p>
+                <ul>Стоимoсть услуги - 800 грн.</ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-7 mb-5">
+                <h3>Метод RANC</h3>
+                <p>Уникальный метод RANC (восстановление активности нервных цетров) - устранение возникновения различных
+                    болезненных состояний.<br/>Конкретной, практической задачей метода является устранение всевозможных
+                    симптомов различных заболеваний путём воздействия на причину, ведущую к их появлению.<br/>Методом
+                    RANC можно лечить заболевания, трудно поддающиеся или вовсе не поддающиеся обычной, традиционной
+                    «таблеточной» терапии</p>
+                <ul>Стоимость процедуры - 600 грн.</ul>
+            </div>
+            <div class="col-md-5 mb-5">
+                <img src="{% static 'img/service_6.jpg' %}" width="420" height="280"
+                     class="rounded-lg">
             </div>
         </div>
     </div>
-    <a class='btn' href='#'><img src='{% static "img/logo.jpg" %}'></a>
+</section>
+
+<section id="contact">
+
+    <div class="container">
+        <h2 class="contact"><span>Запись на прием</span></h2>
+        <div class="row border mb-5">
+            <div class="col-md-6 mt-5">
+                <h2>Контакты клиники:</h2>
+                <div class="row mt-4">
+                    <div class="col-md-6">
+                        <div class="location">
+                            <h5>Адрес:</h5>
+                            <p>ул. Троицкая, 27, г. Запорожье</p>
+                        </div>
+                        <div class="phone">
+                            <h5>Телефон:</h5>
+                            <h5>098 961 92 57</h5>
+                        </div>
+                        <div class="social">
+                            <h5>Социальные сети:</h5>
+                            <div class="row">
+                                <div class="col-md-2 mt-2">
+                                    <p><a href=""><img src="{% static 'img/instagram_color.png' %}" width="30"
+                                                       height="30"></a>
+                                    </p>
+                                </div>
+                                <div class="col-md-2 ml-3 mt-2">
+                                    <p><a href=""><img src="{% static 'img/viber_color.png' %}" width="30" height="30"></a>
+                                    </p>
+                                </div>
+                                <div class="col-md-2 ml-3 mt-2">
+                                    <p><a href=""><img src="{% static 'img/telegram_color.png' %}" width="30"
+                                                       height="30"></a>
+                                    </p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="clock col-md-6">
+                        <h5>График работы:</h5>
+                        <p>Пн-Сб: 8.20 - 18.00</p>
+                        <button type="button" class="btn btn-primary mt-5" data-toggle="modal"
+                                data-target="#reservation">
+                            Записаться на прием
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2679.3744722388715!2d35.180244115845575!3d47.81296028169258!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40dc5e7347356315%3A0x3eeef0280413fce2!2z0YPQuy4g0KLRgNC-0LjRhtC60LDRjywgMjcsINCX0LDQv9C-0YDQvtC20YzQtSwg0JfQsNC_0L7RgNC-0LbRgdC60LDRjyDQvtCx0LvQsNGB0YLRjCwgNjkwMDA!5e0!3m2!1sru!2sua!4v1584485334141!5m2!1sru!2sua"
+                        width="550" height="350" frameborder="0" style="border:0;" allowfullscreen=""
+                        aria-hidden="false" tabindex="0"></iframe>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="col-md-6">
+    <h2 class="text-center">Записаться на прием</h2>
+    <form method="post"> {% csrf_token %}
+        <div class="form-row">
+            <div class="form-group col-md-12">
+                <p>Введите ваше имя</p>
+                {% bootstrap_field form.fist_name show_label=False placeholder='Введите свое имя' %}
+                <input type="text" class="form-control" placeholder="Введите свое имя">
+            </div>
+            <div class="form-group col-md-12">
+                <p>Введите вашу фамилию</p>
+                {{ form.last_name }}
+                <input type="text" class="form-control" placeholder="Введите свою фамилию">
+            </div>
+            <div class="form-group col-md-12">
+                <p>Введите ваш телефон</p>
+                <input type="text" class="form-control" placeholder="+380xx-xxx-xx-xx">
+                {{ form.phone_number }}
+            </div>
+            <div class="col text-right">
+                <button type="submit" class="btn btn-primary" data-toggle="modal"
+                        data-dismiss="modal" data-target="#ok">Записаться
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="reservation" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <div class="row">
+                    <div class="col-md-6 border-right">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2679.3744722388715!2d35.180244115845575!3d47.81296028169258!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40dc5e7347356315%3A0x3eeef0280413fce2!2z0YPQuy4g0KLRgNC-0LjRhtC60LDRjywgMjcsINCX0LDQv9C-0YDQvtC20YzQtSwg0JfQsNC_0L7RgNC-0LbRgdC60LDRjyDQvtCx0LvQsNGB0YLRjCwgNjkwMDA!5e0!3m2!1sru!2sua!4v1584541757183!5m2!1sru!2sua"
+                                width="350" height="250" frameborder="0" style="border:0;" allowfullscreen=""
+                                aria-hidden="false" tabindex="0"></iframe>
+                        <p class="text-center">невролог-вертебролог<br/>Киреева Татьяна Владимировна</p>
+                        <p class="text-center">ул. Троицкая, 27, г. Запорожье<br/>Пн-Сб: 8.20 - 18.00</p>
+                    </div>
+                    <div class="col-md-6">
+                        <h2 class="text-center">Записаться на прием</h2>
+                        <form method="post"> {% csrf_token %}
+                            <div class="form-row">
+                                <div class="form-group col-md-12">
+                                    <p>Введите ваше имя</p>
+                                    {{ form.fist_name }}
+                                    <input type="text" class="form-control" placeholder="Введите свое имя">
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <p>Введите вашу фамилию</p>
+                                    {{ form.last_name }}
+                                    <input type="text" class="form-control" placeholder="Введите свою фамилию">
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <p>Введите ваш телефон</p>
+                                    <input type="text" class="form-control" placeholder="+380xx-xxx-xx-xx">
+                                    {{ form.phone_number }}
+                                </div>
+                                <div class="col text-right">
+                                    <button type="submit" class="btn btn-primary" data-toggle="modal"
+                                            data-dismiss="modal" data-target="#ok">Записаться
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal Ok-->
+<div class="modal fade" id="ok" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <div class="text-center">
+                    Спасибо, в ближайшее время с вами свяжится специалист
+                </div>
+                <div class="text-center mt-4">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Footer -->
+<footer class="py-5 bg-dark">
+    <div class="container">
+        <p class="m-0 text-center text-black">Copyright &copy; Your Website 2020</p>
+    </div>
+    <!-- /.container -->
+</footer>
 
 
 <!-- Optional JavaScript -->
@@ -40,5 +470,12 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
+
+<script src="{% static 'js/bootstrap.js' %}"></script>
+<script src="{% static 'js/jquery.js' %}"></script>
+<script src="{% static 'js/jquery.bootstrap.modal.forms.js' %}"></script>
+
 </body>
+
+
 </html>

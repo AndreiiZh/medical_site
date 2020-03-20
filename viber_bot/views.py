@@ -7,9 +7,10 @@ from django.views import View
 from viberbot import Api
 from viberbot.api.bot_configuration import BotConfiguration
 
-# Create your views here.
 from viberbot.api.messages import TextMessage, KeyboardMessage, PictureMessage
 from viberbot.api.viber_requests import ViberConversationStartedRequest, ViberSubscribedRequest, ViberMessageRequest
+
+from .models import ViberUser
 
 bot_configuration = BotConfiguration(
     name='доктор Киреева',
@@ -41,7 +42,19 @@ def callback(request):
             ])
 
         elif isinstance(viber_request, ViberSubscribedRequest):
-            pass
+            ViberUser.objects.update_or_create(viber_id=viber_request.user.id,
+                                               defaults={
+                                                   'is_active': True,
+                                                   'name': viber_request.user.name,
+                                                   'language': viber_request.user.language,
+                                                   'country': viber_request.user.country,
+                                                   'api_version': viber_request.user.api_version,
+                                                   'primary_device_os': viber_request.user.primary_device_os,
+                                                   'device_type': viber_request.user.device_type,
+                                                   'viber_version': viber_request.user.viber_version,
+                                                   'avatar': viber_request.user.avatar
+                                               }
+                                               )
 
         elif isinstance(viber_request, ViberMessageRequest):
             print(viber_request)
@@ -359,7 +372,7 @@ def callback(request):
                                                               KeyboardMessage(keyboard=keyboard_service)])
             elif text == 'консультация':
                 message = PictureMessage(
-                    media=f'https://{settings.ALLOWED_HOSTS[0]}/media/logo.jpg')
+                    media=f'https://{settings.ALLOWED_HOSTS[0]}/media/foto_doctor.jpg')
 
                 viber.send_messages(viber_request.sender.id, [message,
                                                               TextMessage(text='Консультация невролога 250 грн.'),
@@ -370,26 +383,26 @@ def callback(request):
                                      KeyboardMessage(keyboard=keyboard_location)])
             elif text == 'Блокада' or text == 'Блокады':
                 message = PictureMessage(
-                    media=f'https://{settings.ALLOWED_HOSTS[0]}/media/блокады.jpg')
+                    media=f'https://{settings.ALLOWED_HOSTS[0]}/media/blokada.jpg')
                 viber.send_messages(viber_request.sender.id,
                                     [message,
                                      TextMessage(text='Препараты для блокады от 200 грн. (подбираются индивидуально'),
                                      KeyboardMessage(keyboard=keyboard_service_2)])
             elif text == 'Плазмотерапия':
                 message = PictureMessage(
-                    media=f'https://{settings.ALLOWED_HOSTS[0]}/media/плазматерапия.jpg')
+                    media=f'https://{settings.ALLOWED_HOSTS[0]}/media/plazmo.jpg')
                 viber.send_messages(viber_request.sender.id, [message,
                                                               TextMessage(text='Плазмотерапия'),
                                                               KeyboardMessage(keyboard=keyboard_service_3)])
             elif text == 'Метод RANC':
                 message = PictureMessage(
-                    media=f'https://{settings.ALLOWED_HOSTS[0]}/media/Метод_RANC.jpg')
+                    media=f'https://{settings.ALLOWED_HOSTS[0]}/media/metod_ranc.jpg')
                 viber.send_messages(viber_request.sender.id, [message,
                                                               TextMessage(text='Метод RANC 600 грн.'),
                                                               KeyboardMessage(keyboard=keyboard_exit_service)])
             elif text == 'Капилляромезотерапия позвоночника':
                 message = PictureMessage(
-                    media=f'https://{settings.ALLOWED_HOSTS[0]}/media/капилляромезотер.jpg')
+                    media=f'https://{settings.ALLOWED_HOSTS[0]}/media/kapilaromezoter.jpg')
                 viber.send_messages(viber_request.sender.id,
                                     [message,
                                      TextMessage(text='Капилляромезотерапия позвоночника 800 грн.'),
@@ -402,45 +415,45 @@ def callback(request):
                                                               KeyboardMessage(keyboard=keyboard_service)])
             elif text == 'Паравертебральная':
                 message = PictureMessage(
-                    media=f'https://{settings.ALLOWED_HOSTS[0]}/media/паравертебральная.jpg')
+                    media=f'https://{settings.ALLOWED_HOSTS[0]}/media/paraverterbalnaj.jpg')
                 viber.send_messages(viber_request.sender.id, [message,
                                                               TextMessage(text='Блокада паравертербальная 400 грн.'),
                                                               KeyboardMessage(keyboard=keyboard_exit_service_list)])
             elif text == 'Корешковая':
                 message = PictureMessage(
-                    media=f'https://{settings.ALLOWED_HOSTS[0]}/media/паровертебр_блокада.jpg')
+                    media=f'https://{settings.ALLOWED_HOSTS[0]}/media/paraverterbalnaj_1.jpg')
                 viber.send_messages(viber_request.sender.id, [message,
                                                               TextMessage(text='Блокада корешковая 500 грн.'),
                                                               KeyboardMessage(keyboard=keyboard_exit_service_list)])
             elif text == 'Внутрисуставная':
                 message = PictureMessage(
-                    media=f'https://{settings.ALLOWED_HOSTS[0]}/media/внутрисуставная_блокада.jpg')
+                    media=f'https://{settings.ALLOWED_HOSTS[0]}/media/sustav.jpg')
                 viber.send_messages(viber_request.sender.id, [message,
                                                               TextMessage(text='Блокада внутрисуставная 600 грн.'),
                                                               KeyboardMessage(keyboard=keyboard_exit_service_list)])
             elif text == 'Шейно-воротниковая зона':
                 message = PictureMessage(
-                    media=f'https://{settings.ALLOWED_HOSTS[0]}/media/шейно-воротниковая_зона.jpg')
+                    media=f'https://{settings.ALLOWED_HOSTS[0]}/media/sheaj.jpg')
                 viber.send_messages(viber_request.sender.id,
                                     [message,
                                      TextMessage(text='Плазмотерапия шейно-воротниковой зоны 800 грн.'),
                                      KeyboardMessage(keyboard=keyboard_exit_service_list_2)])
             elif text == 'Волосистая часть головы':
                 message = PictureMessage(
-                    media=f'https://{settings.ALLOWED_HOSTS[0]}/media/плазмотер_ волос.jpg')
+                    media=f'https://{settings.ALLOWED_HOSTS[0]}/media/volos.jpg')
                 viber.send_messages(viber_request.sender.id,
                                     [message,
                                      TextMessage(text='Плазмотерапия волосистой части головы 1100 грн.'),
                                      KeyboardMessage(keyboard=keyboard_exit_service_list_2)])
             elif text == 'Суставов':
                 message = PictureMessage(
-                    media=f'https://{settings.ALLOWED_HOSTS[0]}/media/плазмотер_суставов.jpg')
+                    media=f'https://{settings.ALLOWED_HOSTS[0]}/media/plazmo_sustav.jpg')
                 viber.send_messages(viber_request.sender.id, [message,
                                                               TextMessage(text='Плазмотерапия суставов от 600 грн.'),
                                                               KeyboardMessage(keyboard=keyboard_exit_service_list_2)])
             elif text == 'Позвоночника':
                 message = PictureMessage(
-                    media=f'https://{settings.ALLOWED_HOSTS[0]}/media/паровертебр_блокада.jpg')
+                    media=f'https://{settings.ALLOWED_HOSTS[0]}/media/paraverterbalnaj.jpg')
                 viber.send_messages(viber_request.sender.id, [message,
                                                               TextMessage(text='Плазмотерапия одного отдела 800 грн.'),
                                                               KeyboardMessage(keyboard=keyboard_exit_service_list_2)])
