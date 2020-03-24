@@ -42,22 +42,19 @@ def callback(request):
             ])
 
         elif isinstance(viber_request, ViberSubscribedRequest):
-            ViberUser.objects.update_or_create(viber_id=viber_request.user.id,
-                                               defaults={
-                                                   'is_active': True,
-                                                   'name': viber_request.user.name,
-                                                   'language': viber_request.user.language,
-                                                   'country': viber_request.user.country,
-                                                   'api_version': viber_request.user.api_version,
-                                                   'primary_device_os': viber_request.user.primary_device_os,
-                                                   'device_type': viber_request.user.device_type,
-                                                   'viber_version': viber_request.user.viber_version,
-                                                   'avatar': viber_request.user.avatar
-                                               }
-                                               )
+            pass
 
         elif isinstance(viber_request, ViberMessageRequest):
-            print(viber_request)
+            ViberUser.objects.update_or_create(viber_id=viber_request.sender.id,
+                                               defaults={
+                                                   'is_active': True,
+                                                   'name': viber_request.sender.name,
+                                                   'language': viber_request.sender.language,
+                                                   'country': viber_request.sender.country,
+                                                   'api_version': viber_request.sender.api_version,
+
+                                               }
+                                               )
 
             if isinstance(viber_request.message, TextMessage):
                 font_color = '#5080ab'
@@ -372,7 +369,7 @@ def callback(request):
                                                               KeyboardMessage(keyboard=keyboard_service)])
             elif text == 'консультация':
                 message = PictureMessage(
-                    media=f'https://{settings.ALLOWED_HOSTS[0]}/media/foto_doctor.jpg')
+                    media=f'https://{settings.ALLOWED_HOSTS[0]}/media/blokadi.jpg')
 
                 viber.send_messages(viber_request.sender.id, [message,
                                                               TextMessage(text='Консультация невролога 250 грн.'),

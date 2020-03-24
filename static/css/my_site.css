@@ -1,0 +1,114 @@
+body {
+    padding:40px 0 0 0;
+    background-color: white:
+}
+
+nav, footer {
+    background-image: url({% static 'img/back_image.jpg' %});
+}
+
+.navbar-brand, .nav-link {
+    color: black;
+    text-decoration: none;
+}
+
+.navbar-brand:hover, .nav-link:hover {
+    color: black;
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+.service, .contact, .registration {
+    text-align: center;
+    padding-bottom: 2rem;
+    position: relative;
+}
+
+h2 span {
+    background: #fff;
+    padding: 0 20px;
+}
+
+.service:before, .contact:before, .registration:before {
+    content: "";
+    width: 100%;
+    left: 0;
+    top: 30%;
+    position: absolute;
+    z-index: -1;
+    height: 0;
+    border-top: 1px solid black;
+    padding-bottom: 2rem;
+}
+
+h3 {
+    text-align: center;
+}
+
+.price {
+    padding-left: 1.3rem;
+    font-size: 12px;
+    padding-top: 30px;
+}
+
+.card-body{
+    margin-top: -1.3rem;
+}
+
+section li {
+    padding-left: 1rem;
+    font-size: 13px;
+}
+
+.price ul, .price li {
+    font-size: 17px;
+}
+
+p {
+    font-size: 16px;
+}
+
+.foto_service_2 {
+    padding-top: 2rem;
+}
+
+.location {
+    background:url({% static 'img/location.png' %}) no-repeat;
+    background-size: 20px;
+    display:inline-block;
+    vertical-align:bottom;
+    padding-left: 25px;
+}
+
+.clock {
+    background:url({% static 'img/clock.png' %}) no-repeat;
+    background-size: 20px;
+    display:inline-block;
+    vertical-align:bottom;
+    padding-left: 25px;
+}
+
+.phone {
+    background:url({% static 'img/phone.png' %}) no-repeat;
+    background-size: 20px;
+    display:inline-block;
+    vertical-align:bottom;
+    padding-left: 25px;
+}
+
+.social {
+    background:url({% static 'img/social_media.png' %}) no-repeat;
+    background-size: 20px;
+    display:inline-block;
+    vertical-align:bottom;
+    padding-left: 25px;
+}
+
+.navbar-brand {
+    background:url({% static 'img/brain_1.png' %}) no-repeat;
+    background-size: 30px;
+    display:inline-block;
+    vertical-align:bottom;
+    padding-left: 45px;
+    font-size: 24px;
+}

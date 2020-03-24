@@ -2,6 +2,9 @@
 <html lang="en" xmlns="http://www.w3.org/1999/html">
 {% load static %}
 {% load bootstrap4 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% bootstrap_messages %}
 
 
 <head>
@@ -11,37 +14,50 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <link rel="shortcut icon" href="{% static 'img/doctor_1.png' %}" type="image/png">
+
+
     <title>Доктор Киреева</title>
 
     <style>
         body {
-            padding:40px 0 0 0;
-            background-color: white:
+          padding:40px 0 0 0;
+          background-color: white;
         }
-        nav, footer {
+
+        footer {
           background-image: url({% static 'img/back_image.jpg' %});
+
         }
+
         .navbar-brand, .nav-link {
           color: black;
           text-decoration: none;
 
         }
 
+        .form-group.required {
+            background-color: red;
+        }
+
         .navbar-brand:hover, .nav-link:hover {
           color: black;
           text-decoration: underline;
+          font-weight: bold;
         }
 
-        .service, .contact {
+        .service, .contact, .registration {
           text-align: center;
           padding-bottom: 2rem;
           position: relative;
         }
+
         h2 span {
           background: #fff;
-          padding: 0 20px;
+          padding: 0 15px;
         }
-        .service:before, .contact:before {
+
+        .service:before, .contact:before, .registration:before {
           content: "";
           width: 100%;
           left: 0;
@@ -52,13 +68,13 @@
           border-top: 1px solid black;
           padding-bottom: 2rem;
         }
+
         h3 {
           text-align: center;
         }
         .price {
           padding-left: 1.3rem;
           font-size: 12px;
-          padding-top: 30px;
 
         }
         .card-body{
@@ -79,9 +95,7 @@
         .foto_service_2 {
             padding-top: 2rem;
         }
-        .price .row {
-            padding-top: 2rem;
-        }
+
         .location {
             background:url({% static 'img/location.png' %}) no-repeat;
             background-size: 20px;
@@ -110,65 +124,236 @@
             vertical-align:bottom;
             padding-left: 25px;
         }
+        .navbar-brand {
+            background:url({% static 'img/brain_1.png' %}) no-repeat;
+            background-size: 30px;
+            display:inline-block;
+            vertical-align:bottom;
+            padding-left: 45px;
+            font-size: 24px;
+        }
 
+        .map-wrap iframe {
+            width: 100%;
+        }
+        .image-wrapper img {
+            width:100%;
+            height: auto;
+        }
 
+        /* Икноки рядом с логотипом. Они скрыты до экрана 991px. Потом они отображаются. Новая CSS штука :last-child - это псевдокласс. С его помощью мы можем обратиться к последнему элементу среди похожих и применить какие то особые стили. Подробнее: https://webref.ru/css/last-child
+
+		В данном случае все звучит так: примени ко всем ссылкам внутри .header-icons отступ справа 5px, но к последней - отступ 0px.
+		*/
+
+        .header-icons {
+            display: none;
+        }
+
+        @media (max-width: 992px) {
+            .header-icons {
+                display: flex;
+                margin-bottom: 10px;
+                margin-left: 50px;
+            }
+        }
+
+        .header-icons a {
+            margin-right: 20px;
+        }
+
+        .header-icons a:last-child {
+			margin-right: 0;
+		}
+
+        /* Этим правилом мы перебиваем стили Bootstrap. По умолчанию было  justify-content: space-between; Мы это часто использовали (первый в начало, последний в конец). Теперь мы все элементы прижимаем к началу, НО...*/
+		.navbar .container,
+		.navbar .container-fluid {
+			justify-content: flex-start;
+		}
+
+		/* НО меню с помощью margin-left: auto; толкаем в конец. Это нам позволит держать логотип и иконки слева, а меню справа. */
+		.navbar-toggler {
+			margin-left: auto;
+		}
+
+		/* Костыльное решение проблемы */
+		/* Скрывает последние три элемента в меню. В данном случае это иконки соц.сетей. Скрывает с помощью правила media и условия max-width (если экран меньше заданого значения). Если проще - максимальная ширина экрана, при которой будет работать это правило. Если больше - правильно работать не будет*/
+		.navbar-nav .nav-item:nth-last-child(-n + 3) {
+			display: block;
+		}
+
+		@media (max-width: 992px) {
+			.navbar-nav .nav-item:nth-last-child(-n + 3) {
+				display: none;
+			}
+		}
+
+		@media (max-width: 992px) {
+		    .navbar-brand {
+		        font-size: 18px;
+		        display: none;
+		    }
+		}
+
+		.social a {
+		    margin-left: 15px
+		}
+
+		.nav-item img {
+             -moz-transition: all 0.1s ease-out;
+             -o-transition: all 0.1s ease-out;
+             -webkit-transition: all 0.1s ease-out;
+             width: 26px;
+             height:26px;
+        }
+
+        .nav-item img:hover {
+             -webkit-transform: scale(1.3);
+             -moz-transform: scale(1.3);
+             -o-transform: scale(1.3);
+        }
+
+        .social img {
+             -moz-transition: all 0.1s ease-out;
+             -o-transition: all 0.1s ease-out;
+             -webkit-transition: all 0.1s ease-out;
+             width: 30px;
+             height:30px;
+        }
+
+        .social img:hover {
+             -webkit-transform: scale(1.3);
+             -moz-transform: scale(1.3);
+             -o-transform: scale(1.3);
+        }
+
+        .header-icons img {
+             -moz-transition: all 0.1s ease-out;
+             -o-transition: all 0.1s ease-out;
+             -webkit-transition: all 0.1s ease-out;
+             width: 30px;
+             height:30px;
+        }
+
+        .header-icons img:hover {
+             -webkit-transform: scale(1.3);
+             -moz-transform: scale(1.3);
+             -o-transform: scale(1.3);
+        }
+
+        .phone a {
+            font-size: 20px;
+        }
+
+        .mobile button {
+            display: none;
+        }
+
+        @media (max-width: 992px) {
+            .mobile button {
+                display: block;
+            }
+
+            .button-normal button {
+                display: none;
+            }
+
+            .mobile p {
+                display: none;
+            }
+        }
+
+        .brand-mobile img {
+            display: none;
+
+        }
+
+        @media (max-width: 992px) {
+            .brand-mobile img {
+                display: block;
+                width: 55px;
+                height:45px;
+            }
+        }
 
     </style>
 
 </head>
 
+<body>
 <!-- Navigation -->
-<nav class="navbar navbar-expand-lg fixed-top">
-    <div class="container">
-        <a class="navbar-brand" href="#">
-            <!--            <img src="{% static 'img/logo44.png' %}" width="100" height="100" class="d-inline-block align-top" alt="">-->
-            Доктор Киреева
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
-                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item active">
-                    <a class="nav-link ml-5" href="#">Главная</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link ml-5" href="#">Обо мне</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link ml-5" href="#service">Услуги</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link ml-5" href="#contact">Контакты</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
+<div class="container-fluid">
+    <nav class="navbar navbar-expand-lg fixed-top navbar-light" style="background-image: url({% static 'img/back_image.jpg' %})">
+        <div class="container">
+            <div class="brand-mobile">
+                <a><img src="{% static 'img/logo7.png' %}"></a>
+            </div>
+            <a class="navbar-brand" href="#">
+                доктор Киреева
+            </a>
+            <div class="header-icons">
+                <div class="row mt-2">
+                    <a href="https://www.instagram.com/doctor_kireeva/?igshid=15vuqt2ts05vj"><img src="{% static 'img/instagram_black.png' %}"></a>
+                    <a href="viber://pa?chatURI=doctor_kireeva"><img src="{% static 'img/viber_black.png' %}"></a>
+                    <a href="https://t.me/doctor_Kireeva_bot"><img src="{% static 'img/telegram_black.png' %}"></a>
+                </div>
+            </div>
 
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                    aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link ml-4" href="#">О себе</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link ml-4" href="#service">Услуги</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link ml-4" href="#registration">Запись на прием</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link ml-4" href="#contact">Контакты</a>
+                    </li>
+                     <li class="nav-item">
+                        <a class="nav-link ml-4" href="https://www.instagram.com/doctor_kireeva/?igshid=15vuqt2ts05vj"><img src="{% static 'img/instagram_black.png' %}"></a>
+                    </li>
+                    <li class="nav-item ml-4 mt-2">
+                       <a href="viber://pa?chatURI=doctor_kireeva"><img src="{% static 'img/viber_black.png' %}"></a>
+                    </li>
+                    <li class="nav-item ml-4 mt-2">
+                        <a href="https://t.me/doctor_Kireeva_bot"><img src="{% static 'img/telegram_black.png' %}"></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</div>
 <!-- Page Content -->
 <div class="container">
     <section class="home">
         <!-- Heading Row -->
         <div class="row align-items-center my-5">
             <div class="col-lg-5">
-                <img src="{% static 'img/foto_doctor.jpg' %}" width="430" height="400" alt="">
+                <div class="image-wrapper">
+                    <img src="{% static 'img/foto_doctor.jpg' %}" width="430" height="400" alt="">
+                </div>
             </div>
             <!-- /.col-lg-8 -->
             <div class="col-lg-7">
                 <h1 class="font-weight-light">Киреева Татьяна Владимировна</h1>
                 <h5>(лицензия №28/1212-М от 12.12.2019)</h5>
                 <p class="slogan"><strong>практикующий врач невролог-вертебролог</strong> (начинала свою медицинскую
-                    практику в государственном учреждениии, врач-ординатор военного госпиталя, частные медицинский
+                    практику в государственном учреждении, врач-ординатор военного госпиталя, частные медицинский
                     центры).<br/><strong>Опыт работы 6 лет</strong>, 2 квалификационная категория. Регулярно посещаю
                     европейские конференции, симпозиумы для усовершенствования практических навыков.<br/>Лечение
                     неврологических заболеваний у взрослых и детей. Min количество препаратов, max эффект.<br/>В лечении
                     использую: блокады, плазмотерапия, метод RANC, капелляромезотерапию, ботулинотерапию.</p>
-                <button type="button" class="btn btn-primary mt-4" data-toggle="modal"
-                        data-target="#reservation">
-                    Записаться на прием
-                </button>
+                <a id="service" href="#registration" class="btn btn-primary" role="button" aria-pressed="true">Записаться
+                    на прием</a>
             </div>
             <!-- /.col-md-4 -->
         </div>
@@ -178,7 +363,7 @@
 </div>
 <!-- /.container -->
 <section class="price">
-    <div id="service" class="container">
+    <div class="container">
         <h2 class="service"><span>Услуги</span></h2>
         <div class="row">
             <div class="col-md-7">
@@ -189,26 +374,28 @@
                     своему здоровью: игнорируют боль в спине на начальных этапах, занимаются самолечением, пытаются
                     выполнять упражнения без лечения заболевания. Все это приводит к постепенному прогрессированию
                     болезни и утрате драгоценного времени для восстановления здоровья.</p>
-                <ul>Консультация невролога (взрослая и детская) - 250 грн.</ul>
+                <ul><strong><i>Консультация невролога</i></strong> (взрослая и детская) - 250 грн.</ul>
             </div>
-            <div class="col-md-5 mb-5">
-                <img src="{% static 'img/service_1.jpg' %}" width="420" height="280"
+            <div class="col-md-5">
+                <div class="image-wrapper">
+                    <img src="{% static 'img/service_1.jpg' %}" width="420" height="280"
                      class="rounded-lg">
+                </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-5 mb-4">
-                <div>
+            <div class="col-md-5 mt-5">
+                <div class="image-wrapper">
                     <img src="{% static 'img/service_2.jpg' %}" width="420" height="280"
                          class="rounded-lg">
                 </div>
-                <div class="foto_service_2">
+                <div class="image-wrapper foto_service_2">
                     <img src="{% static 'img/service_3.jpg' %}" width="420" height="300" class="rounded-lg">
                 </div>
             </div>
-            <div class="col-md-7">
+            <div class="col-md-7 mt-5">
                 <h3>Плазмотерапия</h3>
-                <p>PRP-терапия(она же плазмотерапия, плазмолифтинг) основывается на применение аутологичной плазмы
+                <p>PRP-терапия (она же плазмотерапия, плазмолифтинг) основывается на применение аутологичной плазмы
                     (непосредственно плазмы пациента). После интрадермального введения плазмы через некоторое время
                     происходит запуск регенерации: активируются фибробласты, стимулируется выработка гиалуроновой
                     кислоты, коллагена, эластина, снижается воспаление.<br/><strong>Показания:</strong><br/>
@@ -226,7 +413,7 @@
                     невритов;<br/><strong><i>oртопедия-травматология</i></strong> - мышечные спазмы, артриты,
                     артрозы.
                 </p>
-                <ul>Стоимость процедур:
+                <ul><strong><i>Стоимость процедур:</i></strong>
                     <li>шейноворотниковая зона - 800 грн.</li>
                     <li>лицо - 1000 грн.</li>
                     <li>волосистая часть головы - 1100 грн.</li>
@@ -236,36 +423,40 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-7 mb-5">
+            <div class="col-md-7 mt-5">
                 <h3>Блокада</h3>
                 <p>Одним из самых эффективных методов купирования боли в арсенале невролога является лечебная локальная
-                    инъекция (лечебная блокада).<br/>Лечебные блокады — это метод терапии боли и других проявлений
+                    инъекция (лечебная блокада).<br/><strong><i>Лечебные блокады</i></strong> — это метод терапии боли и других проявлений
                     неврологических заболеваний, основанный на введении лекарственного препарата в патологический очаг,
                     являющийся причиной формирования болевого синдрома.<br/>Цель лечебной медикаментозной локальной
-                    инъекции — это устранение причины боли. По современным канонам медицины считается, что остро
+                    инъекции — <strong><i>это устранение причины боли.</i></strong> По современным канонам медицины считается, что остро
                     возникшая боль в позвоночнике должна быть быстро устранена. В случае хронизации болевого синдрома
                     могут развиться депрессивные и другие сопутствующие расстройства, которые, наслаиваясь на
                     клинические симптомы, утяжеляют процесс лечения и ухудшают прогноз выздоровления. Купирование боли
                     должно произойти достаточно быстро, с как можно менее побочными эффектами, материальными и
                     временными затратами.</p>
-                <ul>Стоимость процедур блокад:
+                <ul><strong><i>Стоимость процедур блокад:</i></strong>
                     <li>паравертебральная - 400 грн.</li>
                     <li>корешковая - 500 грн.</li>
                     <li>внутрисуставная - 600 грн.</li>
                 </ul>
                 <p>Препараты для блокады от 200 грн. (подбираются индивидуально методом пробы)</p>
             </div>
-            <div class="col-md-5 mb-5">
-                <img src="{% static 'img/service_4.jpg' %}" width="450" height="500"
+            <div class="col-md-5 mt-5">
+                <div class="image-wrapper">
+                    <img src="{% static 'img/service_4.jpg' %}" width="450" height="500"
                      class="rounded-lg">
+                </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-5 mb-5">
-                <img src="{% static 'img/service_5.jpg' %}" width="420" height="280"
-                     class="rounded-lg">
+            <div class="col-md-5 mt-5">
+                <div class="image-wrapper">
+                    <img src="{% static 'img/service_5.jpg' %}" width="420" height="280"
+                         class="rounded-lg">
+                </div>
             </div>
-            <div class="col-md-7 mb-5">
+            <div class="col-md-7 mt-5">
                 <h3>Капилляромезотерапия позвоночника</h3>
                 <p>Капилляромезотерапия является процедурой, улучшающей микроциркуляцию, особенно в переферических
                     отделах кровеносной и лимфатической систем. Результаты потрясли весь мир!<br/>Суть методики проста и
@@ -273,31 +464,73 @@
                     комплексный подход, начинать надо с позвоночника, с общего состояния, а потом уже заниматься
                     организмом в частности. Вот тогда будет и здоровье, и красота, и здоровая красота!<br/>Курс процедур
                     состоит из 5-10 процедур в зависимости от исходного состояния.</p>
-                <ul>Стоимoсть услуги - 800 грн.</ul>
+                <ul><strong><i>Стоимoсть услуги</i></strong> - 800 грн.</ul>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-7 mb-5">
+            <div class="col-md-7 mt-5">
                 <h3>Метод RANC</h3>
                 <p>Уникальный метод RANC (восстановление активности нервных цетров) - устранение возникновения различных
                     болезненных состояний.<br/>Конкретной, практической задачей метода является устранение всевозможных
                     симптомов различных заболеваний путём воздействия на причину, ведущую к их появлению.<br/>Методом
                     RANC можно лечить заболевания, трудно поддающиеся или вовсе не поддающиеся обычной, традиционной
                     «таблеточной» терапии</p>
-                <ul>Стоимость процедуры - 600 грн.</ul>
+                <ul id="registration"><strong><i>Стоимость процедуры</i></strong> - 600 грн.</ul>
             </div>
-            <div class="col-md-5 mb-5">
-                <img src="{% static 'img/service_6.jpg' %}" width="420" height="280"
-                     class="rounded-lg">
+            <div class="col-md-5 mt-5 mb-5">
+                <div class="image-wrapper">
+                    <img src="{% static 'img/service_6.jpg' %}" width="420" height="280"
+                         class="rounded-lg">
+                </div>
             </div>
         </div>
     </div>
 </section>
 
-<section id="contact">
-
+<section>
     <div class="container">
-        <h2 class="contact"><span>Запись на прием</span></h2>
+        <h2 class="registration"><span>Запись на прием</span></h2>
+        <form method="post"> {% csrf_token %}
+            <div class="row border mb-5">
+                <div class="col-md-6">
+                    <div class="col-md-12 mt-3">
+                        <p>Введите ваши данные:</p>
+                        <div>
+                            {% bootstrap_field form.fist_name show_label=False placeholder='Введите ваше имя' %}
+                        </div>
+                        <div class="">
+                            {% bootstrap_field form.last_name show_label=False placeholder='Введите вашу фамилию' %}
+                        </div>
+                        <div class="">
+                            {% bootstrap_field form.email show_label=False placeholder='Введите вашу электронную почту' %}
+                        </div>
+                        <div class="">
+                            {% bootstrap_field form.phone_number show_label=False placeholder='+380xx-xxx-xx-xx' %}
+                        </div>
+                    </div>
+                    <div class="button-normal">
+                        <button type="submit" class="btn btn-primary mt-1 ml-3">Записаться на прием</button>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group col-md-12 mt-3">
+                        <div class="mobile">
+                            <p>Опишите ваш вопрос:</p>
+                        </div>
+                        {% bootstrap_field form.comment show_label=False size='medium' placeholder='Опишите ваш вопрос' %}
+                    </div>
+                    <div class="mobile">
+                        <button type="submit" class="btn btn-primary mt-1 ml-3">Записаться на прием</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+
+<section id="contact">
+    <div class="container">
+        <h2 class="contact"><span>Контакты</span></h2>
         <div class="row border mb-5">
             <div class="col-md-6 mt-5">
                 <h2>Контакты клиники:</h2>
@@ -309,99 +542,35 @@
                         </div>
                         <div class="phone">
                             <h5>Телефон:</h5>
-                            <h5>098 961 92 57</h5>
+                            <a href="tel:+38 (098) 961 92 57">+38 (098) 961 92 57</a>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="clock">
+                            <h5>График работы:</h5>
+                            <p>Пн-Сб: 8.20 - 18.00</p>
                         </div>
                         <div class="social">
                             <h5>Социальные сети:</h5>
-                            <div class="row">
-                                <div class="col-md-2 mt-2">
-                                    <p><a href=""><img src="{% static 'img/instagram_color.png' %}" width="30"
-                                                       height="30"></a>
-                                    </p>
-                                </div>
-                                <div class="col-md-2 ml-3 mt-2">
-                                    <p><a href=""><img src="{% static 'img/viber_color.png' %}" width="30" height="30"></a>
-                                    </p>
-                                </div>
-                                <div class="col-md-2 ml-3 mt-2">
-                                    <p><a href=""><img src="{% static 'img/telegram_color.png' %}" width="30"
-                                                       height="30"></a>
-                                    </p>
-                                </div>
-                            </div>
-
+                            <a href="https://www.instagram.com/doctor_kireeva/?igshid=15vuqt2ts05vj"><img src="{% static 'img/instagram_color.png' %}"></a>
+                            <a href="viber://pa?chatURI=doctor_kireeva"><img src="{% static 'img/viber_color.png' %}"></a>
+                            <a href="https://t.me/doctor_Kireeva_bot"><img src="{% static 'img/telegram_color.png' %}"></a>
                         </div>
-                    </div>
-                    <div class="clock col-md-6">
-                        <h5>График работы:</h5>
-                        <p>Пн-Сб: 8.20 - 18.00</p>
-                        <button type="button" class="btn btn-primary mt-5" data-toggle="modal"
-                                data-target="#reservation">
-                            Записаться на прием
-                        </button>
                     </div>
                 </div>
             </div>
             <div class="col-md-6">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2679.3744722388715!2d35.180244115845575!3d47.81296028169258!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40dc5e7347356315%3A0x3eeef0280413fce2!2z0YPQuy4g0KLRgNC-0LjRhtC60LDRjywgMjcsINCX0LDQv9C-0YDQvtC20YzQtSwg0JfQsNC_0L7RgNC-0LbRgdC60LDRjyDQvtCx0LvQsNGB0YLRjCwgNjkwMDA!5e0!3m2!1sru!2sua!4v1584485334141!5m2!1sru!2sua"
-                        width="550" height="350" frameborder="0" style="border:0;" allowfullscreen=""
-                        aria-hidden="false" tabindex="0"></iframe>
-            </div>
-        </div>
-    </div>
-</section>
+                <div class="map-wrap">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2679.3744722388715!2d35.180244115845575!3d47.81296028169258!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40dc5e7347356315%3A0x3eeef0280413fce2!2z0YPQuy4g0KLRgNC-0LjRhtC60LDRjywgMjcsINCX0LDQv9C-0YDQvtC20YzQtSwg0JfQsNC_0L7RgNC-0LbRgdC60LDRjyDQvtCx0LvQsNGB0YLRjCwgNjkwMDA!5e0!3m2!1sru!2sua!4v1584485334141!5m2!1sru!2sua"
+                            width="550" height="300" frameborder="0" style="border:0;" allowfullscreen="True"
+                            aria-hidden="false" tabindex="0">
 
-
-
-
-<!-- Modal -->
-<div class="modal fade" id="reservation" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-body">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <div class="row">
-                    <div class="col-md-6 border-right">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2679.3744722388715!2d35.180244115845575!3d47.81296028169258!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40dc5e7347356315%3A0x3eeef0280413fce2!2z0YPQuy4g0KLRgNC-0LjRhtC60LDRjywgMjcsINCX0LDQv9C-0YDQvtC20YzQtSwg0JfQsNC_0L7RgNC-0LbRgdC60LDRjyDQvtCx0LvQsNGB0YLRjCwgNjkwMDA!5e0!3m2!1sru!2sua!4v1584541757183!5m2!1sru!2sua"
-                                width="350" height="250" frameborder="0" style="border:0;" allowfullscreen=""
-                                aria-hidden="false" tabindex="0"></iframe>
-                        <p class="text-center">невролог-вертебролог<br/>Киреева Татьяна Владимировна</p>
-                        <p class="text-center">ул. Троицкая, 27, г. Запорожье<br/>Пн-Сб: 8.20 - 18.00</p>
-                    </div>
-                    <div class="col-md-6">
-                        <h2 class="text-center">Записаться на прием</h2>
-                        <form method="post"> {% csrf_token %}
-                            <div class="form-row">
-                                <div class="form-group col-md-12">
-                                    {% bootstrap_field form.fist_name show_label=False placeholder='Введите свое имя' %}
-                                </div>
-                                <div class="form-group col-md-12">
-                                    {% bootstrap_field form.last_name show_label=False placeholder='Введите вашу фамилию' %}
-                                </div>
-                                <div class="form-group col-md-12">
-                                    {% bootstrap_field form.phone_number show_label=False placeholder='Введите ваш телефон' %}
-                                </div>
-                                <div class="form-group col-md-12">
-                                    {% bootstrap_field form.email show_label=False placeholder='Напишите свою почту' %}
-                                </div>
-                                <div class="form-group col-md-12">
-                                    {% bootstrap_field form.comment show_label=False row='3' placeholder='Опишите свой вопрос' %}
-                                </div>
-                                <div class="col text-right">
-                                    <button type="submit" class="btn btn-primary" data-toggle="modal"
-                                            data-dismiss="modal" data-target="#ok">Записаться
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
+                    </iframe>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</section>
 
 
 <!-- Modal Ok-->
@@ -409,16 +578,17 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-body">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <div class="text-center">
-                    Спасибо, в ближайшее время с вами свяжится специалист
-                </div>
-                <div class="text-center mt-4">
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                <h3 class="text-center">Подпишись на вайбер бота</h3>
+                <div class="row justify-content-center mt-4 mb-3">
+                    <div>
+                        <img src="{% static 'img/viber_bot_qrcod.png' %}" width="250" height="250">
+                    </div>
                 </div>
             </div>
+
         </div>
     </div>
 </div>
@@ -433,6 +603,7 @@
 </footer>
 
 
+
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
@@ -445,9 +616,22 @@
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
 
+
+
 <script src="{% static 'js/bootstrap.js' %}"></script>
 <script src="{% static 'js/jquery.js' %}"></script>
 <script src="{% static 'js/jquery.bootstrap.modal.forms.js' %}"></script>
+
+<script>
+    $(document).ready(function() {
+        $('navbar-collapse').on('click', 'a', function (e) {
+            $(e.delegateTarget).collapse('toggle');
+        });
+    });
+</script>
+
+
+
 
 </body>
 
